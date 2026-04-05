@@ -56,21 +56,21 @@ class LispParser {
     return this.buildAST(this.tokenize(expression));
   }
 
-  evaluate (ast, funcs = {}) {
+  evaluate (ast, functionsList = {}) {
     if (ast instanceof Array) {
-      const func = funcs[ast[0].value];
-      const params = [];
-      for (let index = 1; index < ast.length; index++) {
-        params.push(ast[index]);
+      const targetFunction = functionsList[ast[0].value];
+      const functionParameters = [];
+      for (let parameterIndex = 1; parameterIndex < ast.length; parameterIndex++) {
+        functionParameters.push(ast[parameterIndex]);
       }
-      return func([this.evaluate, funcs], ...params);
+      return targetFunction({evalAST: this.evaluate, funcs: functionsList}, ...functionParameters);
     }
     return ast.value;
   }
 
-  evaluateCode (code, funcs = {}) {
-    const ast = this.parse(code);
-    return this.evaluate(ast, funcs);
+  evaluateCode (codeInput, functionsList = {}) {
+    const astResult = this.parse(codeInput);
+    return this.evaluate(astResult, functionsList);
   }
 }
 const lpjs = new LispParser();
