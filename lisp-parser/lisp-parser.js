@@ -73,3 +73,4 @@ class LispParser {
     return this.evaluate(ast, funcs);
   }
 }
+const lpjs = new LispParser();
