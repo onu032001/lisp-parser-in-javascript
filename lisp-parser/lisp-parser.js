@@ -63,7 +63,10 @@ class LispParser {
       for (let parameterIndex = 1; parameterIndex < ast.length; parameterIndex++) {
         functionParameters.push(ast[parameterIndex]);
       }
-      return targetFunction({evalAST: this.evaluate, funcs: functionsList}, ...functionParameters);
+      return targetFunction({
+        evalAST: astInput => this.evaluate(astInput, functionsList),
+        funcs: functionsList
+      }, ...functionParameters);
     }
     return ast.value;
   }
