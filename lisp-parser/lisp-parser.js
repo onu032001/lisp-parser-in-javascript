@@ -16,7 +16,7 @@ class LispParser {
     } else if (token.match(/^"(?:.|\\\\|\\")*(?<!\\)"$/)) {
       return {
         type: 'STRING',
-        value: token.substring(1, token.length - 1)
+        value: eval(token)
       }
     } else {
       return {
