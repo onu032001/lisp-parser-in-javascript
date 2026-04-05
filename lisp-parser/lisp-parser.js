@@ -31,7 +31,7 @@ class LispParser {
       .replace(/\(/g, ' ( ')
       .replace(/\)/g, ' ) ')
       .trim()
-      .split(/("(?:.|\\\\|\\")*(?<!\\)"|.*?)\s+/)
+      .split(/("(?:.|\\\\|\\")*?(?<!\\)"|.*?)\s+/)
       .filter(listItem => listItem !== '')
       .map(this.readToken);
   }
